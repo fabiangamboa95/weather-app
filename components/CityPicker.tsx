@@ -7,7 +7,6 @@ import {useRouter} from 'next/navigation'
 import {Country, City} from 'country-state-city'
 
 type CountryOption = (typeof countries)[0]
-
 type CityOption = ReturnType<typeof cities>[0]
 
 const countries = Country.getAllCountries().map(country => ({
@@ -36,8 +35,8 @@ export default function CityPicker() {
   const [city, setCity] = useState<CityOption | null>(null)
   const router = useRouter()
 
-  console.log({country, city}) // ! debug
-  if (country) console.log({citiesLength: cities(country).length, citiesSample: cities(country).slice(0, 10)}) // ! debug
+  // console.log({country, city}) // ! debug
+  // if (country) console.log({citiesLength: cities(country).length, citiesSample: cities(country).slice(0, 10)}) // ! debug
 
   return (
     <div className="space-y-4">
@@ -65,14 +64,13 @@ export default function CityPicker() {
             <label htmlFor="country">City</label>
           </div>
 
-          {/* sta lenta esta madre por ejemplo con US */}
           <Select
             className="text-black"
             options={cities(country)}
             value={city}
             onChange={option => {
               setCity(option)
-              router.push(`location/${option?.value.latitude}/${option?.value.longitude}`)
+              router.push(`location/${option?.value.name}/${option?.value.latitude}/${option?.value.longitude}`)
             }}
           />
         </div>
@@ -80,3 +78,5 @@ export default function CityPicker() {
     </div>
   )
 }
+
+// TODO: the city select is very slow on United States because there are 19k cities, fix
