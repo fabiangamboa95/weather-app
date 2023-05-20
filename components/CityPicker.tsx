@@ -35,9 +35,6 @@ export default function CityPicker() {
   const [city, setCity] = useState<CityOption | null>(null)
   const router = useRouter()
 
-  // console.log({country, city}) // ! debug
-  // if (country) console.log({citiesLength: cities(country).length, citiesSample: cities(country).slice(0, 10)}) // ! debug
-
   return (
     <div className="space-y-4">
       <div className="space-y-2">

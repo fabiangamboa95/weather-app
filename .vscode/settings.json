@@ -3,13 +3,16 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
     "dewpoint",
+    "extralight",
     "generationtime",
     "Meteo",
     "openmeteo",
     "relativehumidity",
     "STEPZEN",
+    "weatherbit",
     "weathercode",
     "winddirection",
+    "windgusts",
     "windspeed"
   ]
 }
