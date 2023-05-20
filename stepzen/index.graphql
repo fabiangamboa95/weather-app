@@ -1,3 +1,10 @@
-schema @sdl(files: ["curl/index.graphql"]) {
+schema
+  @sdl(
+    files: [
+      "customers/index.graphql"
+      "Data USA/index.graphql"
+      "Open Meteo/index.graphql"
+    ]
+  ) {
   query: Query
 }

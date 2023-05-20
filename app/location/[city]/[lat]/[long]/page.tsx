@@ -1,5 +1,5 @@
 import {getApolloClient} from '@/apollo-client'
-import fetchWeatherQuery from '@/graphql/queries/fetchWeaterQueries'
+import fetchWeatherQuery from '@/graphql/queries/fetchWeatherQueries'
 
 export default async function WeatherPage({
   params: {city, lat, long},
@@ -10,15 +10,12 @@ export default async function WeatherPage({
 
   const {data} = await client.query({
     query: fetchWeatherQuery,
-    variables: {
-      current_weather: 'true',
-      latitude: long,
-      longitude: lat,
-      timezone: 'GMT',
-    },
+    variables: {latitude: long, longitude: lat},
   })
 
-  const results: Root = data.myQuery
+  const results: Meteo = data.openmeteo
+
+  console.log({results}) // ! debug
 
   return (
     <div>

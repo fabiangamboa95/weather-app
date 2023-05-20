@@ -1,0 +1,38 @@
+type Hourly {
+  apparent_temperature: [Float]
+  dewpoint_2m: [Float]
+  precipitation_probability: [Int]
+  rain: [Float]
+  relativehumidity_2m: [Int]
+  showers: [Float]
+  temperature_2m: [Float]
+  time: [DateTime]
+  weathercode: [Int]
+}
+type HourlyUnits {
+  apparent_temperature: String
+  dewpoint_2m: String
+  precipitation_probability: String
+  rain: String
+  relativehumidity_2m: String
+  showers: String
+  temperature_2m: String
+  time: String
+  weathercode: String
+}
+type Meteo {
+  elevation: Int
+  generationtime_ms: Float
+  hourly: Hourly
+  hourly_units: HourlyUnits
+  latitude: Float
+  longitude: Float
+  timezone: String
+  timezone_abbreviation: String
+  utc_offset_seconds: Int
+}
+
+type Query {
+  openmeteo(hourly: String, latitude: String, longitude: String): Meteo
+    @rest(endpoint: "https://api.open-meteo.com/v1/forecast")
+}

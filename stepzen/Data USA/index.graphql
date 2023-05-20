@@ -1,0 +1,32 @@
+type Annotations {
+  dataset_link: String
+  dataset_name: String
+  source_description: String
+  source_name: String
+  subtopic: String
+  table_id: String
+  topic: String
+}
+"""
+Some fields ["ID Nation", "ID Year", "Slug Nation"] are not valid graphql identifiers and were omitted
+"""
+type DataEntry {
+  Nation: String
+  Population: Int
+  Year: Int
+}
+type DataUSA {
+  data: [DataEntry]
+  source: [SourceEntry]
+}
+type SourceEntry {
+  annotations: Annotations
+  measures: [String]
+  name: String
+  substitutions: [JSON]
+}
+
+type Query {
+  datausa(drilldowns: String, measures: String): DataUSA
+    @rest(endpoint: "https://datausa.io/api/data")
+}
