@@ -6,6 +6,8 @@ import RainChart from '@/components/RainChart'
 import StatCard from '@/components/StatCard'
 import TempChart from '@/components/TempChart'
 import fetchWeatherQuery from '@/graphql/queries/fetchWeatherQueries'
+import cleanData from '@/lib/cleanData,'
+import getBasePath from '@/lib/getBasePath'
 
 export const revalidate = 60
 
@@ -23,6 +25,14 @@ export default async function WeatherPage({
 
   const results: Meteo = data.openmeteo
 
+  const {content} = await fetch(`${getBasePath()}/api/getWeatherSummary`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({weatherData: cleanData(results, city)}),
+  }).then(res => res.json())
+
   return (
     <div className=" flex flex-col min-h-screen md:flex-row">
       <InformationPanel props={{city, results, lat, long}} />
@@ -37,7 +47,7 @@ export default async function WeatherPage({
           </div>
 
           <div className="m-2 mb-10">
-            <CalloutCard message="Chat GPT" />
+            <CalloutCard message={content} />
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 m-2">
