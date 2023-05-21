@@ -7,7 +7,7 @@ const fetchWeatherQuery = gql`
     $hourly: String = "temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,snowfall,snow_depth,windgusts_10m,uv_index,uv_index_clear_sky"
     $latitude: String!
     $longitude: String!
-    $timezone: String = "auto"
+    $timezone: String = "GMT"
   ) {
     openmeteo(
       current_weather: $current_weather
