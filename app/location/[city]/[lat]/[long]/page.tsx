@@ -1,6 +1,7 @@
 import {getApolloClient} from '@/apollo-client'
 import CalloutCard from '@/components/CalloutCard'
 import InformationPanel from '@/components/InformationPanel'
+import RainChart from '@/components/RainChart'
 import StatCard from '@/components/StatCard'
 import TempChart from '@/components/TempChart'
 import fetchWeatherQuery from '@/graphql/queries/fetchWeatherQueries'
@@ -14,7 +15,7 @@ export default async function WeatherPage({
 
   const {data} = await client.query({
     query: fetchWeatherQuery,
-    variables: {latitude: long, longitude: lat},
+    variables: {latitude: lat, longitude: long},
   })
 
   const results: Meteo = data.openmeteo
@@ -72,6 +73,7 @@ export default async function WeatherPage({
 
         <div className=" space-y-3">
           <TempChart results={results} />
+          <RainChart results={results} />
         </div>
       </div>
     </div>
