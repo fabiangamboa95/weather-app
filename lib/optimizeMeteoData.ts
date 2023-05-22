@@ -1,4 +1,4 @@
-const cleanData = (data: Meteo, city: string) => {
+const optimizeMeteoData = (data: Meteo, city: string) => {
   const {current_weather, timezone, hourly, hourly_units, timezone_abbreviation} = data
 
   const {temperature, windspeed, winddirection, weathercode, time} = current_weather
@@ -28,4 +28,4 @@ const cleanData = (data: Meteo, city: string) => {
   }
 }
 
-export default cleanData
+export default optimizeMeteoData

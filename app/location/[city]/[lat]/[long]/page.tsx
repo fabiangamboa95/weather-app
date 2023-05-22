@@ -6,7 +6,7 @@ import RainChart from '@/components/RainChart'
 import StatCard from '@/components/StatCard'
 import TempChart from '@/components/TempChart'
 import fetchWeatherQuery from '@/graphql/queries/fetchWeatherQueries'
-import cleanData from '@/lib/cleanData,'
+import optimizeMeteo from '@/lib/optimizeMeteoData'
 import getBasePath from '@/lib/getBasePath'
 
 export const revalidate = 60
@@ -30,7 +30,7 @@ export default async function WeatherPage({
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({weatherData: cleanData(results, city)}),
+    body: JSON.stringify({weatherData: optimizeMeteo(results, city)}),
   }).then(res => res.json())
 
   return (

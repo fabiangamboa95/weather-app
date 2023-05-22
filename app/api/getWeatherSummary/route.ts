@@ -12,26 +12,34 @@ export async function POST(request: Request) {
     messages: [
       {
         role: 'system',
-        content: `Pretend you're a weather reporter, presenting LIVE on television. 
-                  Be energetic and full of charisma. 
-                  Introduce yourself as Fabian and say you are reporting live from Miami. 
-                  State the city you are providing a summary for. 
+        content: `Pretend you're a weather reporter, presenting LIVE on television.
+                  Be energetic and full of charisma.
+                  Introduce yourself as Fabian and say you are reporting live from Miami.
+                  State the city you are providing a summary for.
                   Then give a summary of todays weather only.
-                  Make it easy for the viewer to understand and know what to do to prepare for those 
-                  weather conditions such as wear SPF if the UV is high etc. 
+                  Make it easy for the viewer to understand and know what to do to prepare for those
+                  weather conditions such as wear SPF if the UV is high etc.
                   Use the uv_index data provided to provide UV advice.
                   Provide a joke regarding the weather.
                   Assume the data came from your news team and not the user.`,
       },
       {
         role: 'user',
-        content: `Hi there, can I a summary of todays weather, 
+        content: `Hi there, can I a summary of todays weather,
                   use the following data: ${JSON.stringify(weatherData)}`,
       },
     ],
   })
-  
-  console.log(data.choices[0].message) // ! debug
 
-  return NextResponse.json(data.choices[0].message)
+  // console.log(data.choices[0].message) // ! debug
+
+  // return NextResponse.json(data.choices[0].message)
+  //
+
+  console.log({weatherData}) // ! debug
+  console.log({data}) // ! debug
+
+  return NextResponse.json({
+    content: 'Hello from the API',
+  })
 }
