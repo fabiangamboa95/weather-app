@@ -25,7 +25,7 @@ export default async function WeatherPage({
 
   const results: Meteo = data.openmeteo
 
-  const {content} = await fetch(`${getBasePath()}/api/getWeatherSummary`, {
+  const {content} = await fetch(`${getBasePath()}/api/getWeatherSummaryFake`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

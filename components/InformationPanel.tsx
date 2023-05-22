@@ -24,18 +24,18 @@ function InformationPanel({props: {city, results, lat, long}}: Props) {
 
       <CityPicker />
 
-      <hr className=" my-10"></hr>
+      <hr className="my-10"></hr>
 
-      <div className=" mt-5 flex items-center justify-between space-x-10 mb-5">
+      <div className="my-5 flex items-center justify-between">
         <div>
           <p>
             {new Date().toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
           </p>
 
-          <p className=" font-extralight">Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</p>
+          <p className="font-extralight">Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</p>
         </div>
 
-        <p className=" text-xl font-bold uppercase">
+        <p className="text-xl font-bold uppercase">
           {new Date().toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}
         </p>
       </div>

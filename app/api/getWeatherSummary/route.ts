@@ -31,15 +31,5 @@ export async function POST(request: Request) {
     ],
   })
 
-  // console.log(data.choices[0].message) // ! debug
-
-  // return NextResponse.json(data.choices[0].message)
-  //
-
-  console.log({weatherData}) // ! debug
-  console.log({data}) // ! debug
-
-  return NextResponse.json({
-    content: 'Hello from the API',
-  })
+  return NextResponse.json(data.choices[0].message)
 }
