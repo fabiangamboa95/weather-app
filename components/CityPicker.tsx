@@ -4,10 +4,10 @@ import {useState} from 'react'
 import Select from 'react-select'
 import {GlobeIcon} from '@heroicons/react/solid'
 import {useRouter} from 'next/navigation'
-import {Country, City} from 'country-state-city'
+import {Country, City, State} from 'country-state-city'
 
 type CountryOption = (typeof countries)[0]
-type CityOption = ReturnType<typeof cities>[0]
+type StateOption = ReturnType<typeof states>[0]
 
 const countries = Country.getAllCountries().map(country => ({
   value: {
@@ -18,21 +18,34 @@ const countries = Country.getAllCountries().map(country => ({
   label: country.name,
 }))
 
-const cities = (country: CountryOption) =>
-  City.getCitiesOfCountry(country.value.isoCode)?.map(city => ({
+const states = (country: CountryOption) =>
+  State.getStatesOfCountry(country.value.isoCode)?.map(state => ({
     value: {
-      latitude: city.latitude!,
-      longitude: city.longitude!,
-      countryCode: city.countryCode,
-      name: city.name,
-      stateCode: city.stateCode,
+      latitude: state.latitude!,
+      longitude: state.longitude!,
+      countryCode: state.countryCode,
+      name: state.name,
+      stateCode: state.isoCode,
     },
-    label: city.name,
+    label: state.name,
   })) ?? []
+
+const handler = (country: CountryOption, state: StateOption) =>
+  state !== null
+    ? City.getCitiesOfState(country.value.isoCode, state.value.stateCode).map(city => ({
+        value: {
+          latitude: city.latitude!,
+          longitude: city.longitude!,
+          countryCode: city.countryCode,
+          name: city.name,
+        },
+        label: state.label + ', ' + city.name,
+      }))
+    : states(country)
 
 export default function CityPicker() {
   const [country, setCountry] = useState<CountryOption | null>(null)
-  const [city, setCity] = useState<CityOption | null>(null)
+  const [state, setState] = useState<StateOption | null>(null)
   const router = useRouter()
 
   return (
@@ -49,7 +62,7 @@ export default function CityPicker() {
           value={country}
           onChange={option => {
             setCountry(option)
-            setCity(null)
+            setState(null)
           }}
         />
       </div>
@@ -63,11 +76,13 @@ export default function CityPicker() {
 
           <Select
             className="text-black"
-            options={cities(country)}
-            value={city}
+            options={handler(country, state!)}
             onChange={option => {
-              setCity(option)
-              router.push(`location/${option?.value.name}/${option?.value.latitude}/${option?.value.longitude}`)
+              if (state === null) setState(option as StateOption)
+              else {
+                console.log(option)
+                router.push(`location/${option?.value.name}/${option?.value.latitude}/${option?.value.longitude}`)
+              }
             }}
           />
         </div>
